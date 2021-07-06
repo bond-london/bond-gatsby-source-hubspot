@@ -1,46 +1,38 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 exports.__esModule = true;
-exports.sourceNodes = sourceNodes;
+var _exportNames = {
+  pluginOptionsSchema: true
+};
+exports.pluginOptionsSchema = void 0;
 
-var _axios = _interopRequireDefault(require("axios"));
+var _sourceNodes = require("./sourceNodes");
 
-async function sourceNodes(args, configOptions) {
-  const {
-    actions,
-    reporter,
-    createContentDigest,
-    createNodeId
-  } = args;
-  const {
-    createNode
-  } = actions;
-  const API_KEY = configOptions.apiKey;
+Object.keys(_sourceNodes).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _sourceNodes[key]) return;
+  exports[key] = _sourceNodes[key];
+});
 
-  if (!API_KEY) {
-    reporter.panic("No Hubspot API key provided");
-  }
+var _index = require("./index");
 
-  const fetchAllPages = await _axios.default.get(`https://api.hubapi.com/content/api/v2/pages?hapikey=${API_KEY}`);
-  const response = await fetchAllPages.data;
-  const objects = response.objects;
-  objects.forEach((page, index) => {
-    const pageNode = {
-      id: createNodeId(`hubspot-page-${page.id}`),
-      parent: null,
-      children: [],
-      internal: {
-        type: "HubspotPage",
-        contentDigest: "",
-        owner: ""
-      },
-      title: page.title,
-      modules: page.widgets
-    };
-    reporter.info(`Creating Hubspot page ${page.title} (${index})`);
-    pageNode.internal.contentDigest = createContentDigest(pageNode);
-    createNode(pageNode);
-  });
-}
+exports.pluginOptionsSchema = _index.pluginOptionsSchema;
+
+var _createSchemaCustomization = require("./createSchemaCustomization");
+
+Object.keys(_createSchemaCustomization).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _createSchemaCustomization[key]) return;
+  exports[key] = _createSchemaCustomization[key];
+});
+
+var _onCreateNode = require("./onCreateNode");
+
+Object.keys(_onCreateNode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _onCreateNode[key]) return;
+  exports[key] = _onCreateNode[key];
+});
