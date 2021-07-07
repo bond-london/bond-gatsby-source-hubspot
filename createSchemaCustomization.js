@@ -26,11 +26,11 @@ async function createSchemaCustomization(args, options) {
     apiKey
   } = options;
   const tableType = draft ? "/draft" : "";
-  reporter.info(`Fetching tables for "${tableType}" with key "${apiKey}"`);
+  reporter.verbose(`Fetching tables for "${tableType}" with key "${apiKey}"`);
   const fetchAllTables = await _axios.default.get(`https://api.hubapi.com/cms/v3/hubdb/tables${tableType}?hapikey=${apiKey}`);
   const response = await fetchAllTables.data;
   const tables = response.results;
-  reporter.info(`Got ${tables.length} tables`);
+  reporter.verbose(`Got ${tables.length} tables`);
   await cache.set(_.TableCacheKey, tables);
   createTypes(`
     type ${tablePrefix}MarkdownNode implements Node {

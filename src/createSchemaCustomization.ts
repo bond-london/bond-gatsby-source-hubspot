@@ -16,13 +16,13 @@ export async function createSchemaCustomization(
   const { tablePrefix, draft, fetchTables, apiKey } = options;
   const tableType = draft ? "/draft" : "";
 
-  reporter.info(`Fetching tables for "${tableType}" with key "${apiKey}"`);
+  reporter.verbose(`Fetching tables for "${tableType}" with key "${apiKey}"`);
   const fetchAllTables = await axios.get<HubspotResponse<HubspotTable>>(
     `https://api.hubapi.com/cms/v3/hubdb/tables${tableType}?hapikey=${apiKey}`
   );
   const response = await fetchAllTables.data;
   const tables = response.results;
-  reporter.info(`Got ${tables.length} tables`);
+  reporter.verbose(`Got ${tables.length} tables`);
 
   await cache.set(TableCacheKey, tables);
 

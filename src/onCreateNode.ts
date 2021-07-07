@@ -36,7 +36,7 @@ async function buildImage(image: HubspotImage, args: CreateNodeArgs) {
 
   const ext = extname(url);
   const name = createContentDigest(basename(url, ext));
-  reporter.info(`Downloading remote file ${name} ${ext} of type ${type}`);
+  reporter.verbose(`Downloading remote file ${name} ${ext} of type ${type}`);
   const fileNode = await createRemoteFileNode({
     url,
     parentNodeId: node.id,
@@ -71,7 +71,7 @@ async function buildMarkdown(
   } = args;
   const { createNode } = actions;
   const { tablePrefix } = options;
-  reporter.info(`build markdown for ${columnName}`);
+  reporter.verbose(`build markdown for ${columnName}`);
   const html = node[columnName] as string;
   const decoded = await htmlToMarkdown(html); // decode(html);
   const markdownBody = {

@@ -44,7 +44,7 @@ async function buildImage(image, args) {
   } = image;
   const ext = (0, _path.extname)(url);
   const name = createContentDigest((0, _path.basename)(url, ext));
-  reporter.info(`Downloading remote file ${name} ${ext} of type ${type}`);
+  reporter.verbose(`Downloading remote file ${name} ${ext} of type ${type}`);
   const fileNode = await (0, _gatsbySourceFilesystem.createRemoteFileNode)({
     url,
     parentNodeId: node.id,
@@ -80,7 +80,7 @@ async function buildMarkdown(columnName, args, options) {
   const {
     tablePrefix
   } = options;
-  reporter.info(`build markdown for ${columnName}`);
+  reporter.verbose(`build markdown for ${columnName}`);
   const html = node[columnName];
   const decoded = await htmlToMarkdown(html); // decode(html);
 
