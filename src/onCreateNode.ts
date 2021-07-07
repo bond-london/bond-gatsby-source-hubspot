@@ -1,6 +1,5 @@
 import { CreateNodeArgs } from "gatsby";
 import { createRemoteFileNode } from "gatsby-source-filesystem";
-import { decode } from "he";
 import { basename, extname } from "path";
 import unified from "unified";
 import parse from "rehype-parse";
